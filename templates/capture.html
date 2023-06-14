@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>YOLOv5 Webcam Streaming</title>
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
+</head>
+<body>
+    <button id="back-button" onclick="goBack()">Back</button>
+    <div id="image-container">
+        <div class="gallery">
+            {% for image in images %}
+                <div class="gallery-item">
+                    <img class="gallery-image" src="/static/captures/{{ image }}" data-image-name="{{ image }}" onclick="openModal(this)">
+                    <div class="image-info">{{ image }}</div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div id="modal" class="modal" onclick="closeModal()">
+        <img id="modal-image" class="modal-image" src="">
+    </div>
+
+    <script>
+        function openModal(image) {
+            const modal = document.getElementById('modal');
+            const modalImage = document.getElementById('modal-image');
+            modalImage.src = image.src;
+            modal.style.display = 'flex';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('modal');
+            modal.style.display = 'none';
+        }
+
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</body>
+</html>

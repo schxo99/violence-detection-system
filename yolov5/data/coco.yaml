@@ -1,0 +1,6 @@
+train: C:\Users\me\Desktop\yolov5-master\data\violenceDataset\train\images
+val: C:\Users\me\Desktop\yolov5-master\data\violenceDataset\valid\images
+
+nc: 1
+names: ['violence']
+#batch = 2, epoch = 200

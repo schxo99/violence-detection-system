@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>YOLOv5 Webcam Streaming</title>
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
+
+</head>
+
+<body>
+    <div id="container">
+        <div id="video-container">
+            <div>실시간 감시 영상</div>
+            <img id="video" src="{{ url_for('video_feed') }}">
+            <div id="detection-container">
+                {% for image in images %}
+                <img class="detection-image" src="/static/captures/{{ image }}">
+                {% endfor %}
+            </div>
+        </div>
+        <div id="side-container">
+            <div id="log-container" class="log-container">감지내역</div>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.4.1/socket.io.js"></script>
+        
+            <div>
+                <script>
+                    const socket = io();
+                    //감지콘솔
+                    socket.on('log_message', function (message) {
+                        const logContainer = document.getElementById('log-container');
+                        const logItem = document.createElement('p');
+                        logItem.textContent = message;
+                        logContainer.appendChild(logItem);
+                    });
+        
+                    //객체 감지 결과
+                    socket.on('detection_result', function (result) {
+                        const imageContainer = document.querySelector('.gallery');
+                        const capturedImage = document.createElement('div');
+                        capturedImage.classList.add('gallery-image');
+                        const img = document.createElement('img');
+                        img.src = result.image_url;
+                        img.alt = 'Captured Image';
+                        const imageInfo = document.createElement('div');
+                        imageInfo.classList.add('image-info');
+                        imageInfo.textContent = result.image_info;
+        
+                        capturedImage.appendChild(img);
+                        capturedImage.appendChild(imageInfo);
+                        imageContainer.prepend(capturedImage);
+        
+                        //감지 내역 스크롤
+                        imageContainer.scrollTop = 0;
+        
+                        //감지 결과 로그
+                        const logContainer = document.getElementById('log-container');
+                        const logItem = document.createElement('p');
+                        logItem.textContent = result.log_message;
+                        logContainer.appendChild(logItem);
+                    });
+                </script>
+            </div>
+        
+            <div id="capture-container">
+                <div>최근 캡쳐된 이미지</div>
+                <div class="gallery">
+                </div>
+            </div>
+            <button id="capture-button" onclick="location.href='/capture'">View Captured Images</button>
+        </div>
+        
+    </div>
+
+</body>
+
+</html>
