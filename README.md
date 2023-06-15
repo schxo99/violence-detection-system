@@ -21,7 +21,7 @@
     <h3>실시간 영상을 모니터링 UI</h3>
     <img style="float: left;" src="https://github.com/schxo99/violence-detection-system/blob/master/image/1.PNG" width="700" height="auto"/>
     </br>
-  <h3>폭력 인식 캡쳐확인 UI</h3>
+  <h3>캡쳐된 이미지 확인 UI</h3>
     <img style="float: left;" src="https://github.com/schxo99/violence-detection-system/blob/master/image/2.PNG" width="700" height="auto"/>
   </p>
 </div>
